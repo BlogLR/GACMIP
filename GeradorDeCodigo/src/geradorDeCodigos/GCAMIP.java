@@ -6,7 +6,7 @@ package geradorDeCodigos;
 
 /**
  * Gerador de Código Automático a partir de Modelo Idependente de Plataforma
- * @author leandro
+ * @author Leandro Rolim
  *
  */
 public class GCAMIP {
