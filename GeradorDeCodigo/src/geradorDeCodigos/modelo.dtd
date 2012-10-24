@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/modelo.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE bd SYSTEM "modelo.dtd">
+
+    <bd>
+    ...
+    </bd>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT bd (tabela)*>
+<!ATTLIST bd
+    nome CDATA #IMPLIED
+    xsi:schemaLocation CDATA #IMPLIED
+    xmlns:xsi CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT tabela (campo)*>
+<!ATTLIST tabela
+    primario CDATA #IMPLIED
+    nome CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT campo EMPTY>
+<!ATTLIST campo
+    tamanho CDATA #IMPLIED
+    func CDATA #IMPLIED
+    tipo CDATA #IMPLIED
+    nome CDATA #IMPLIED
+  >
