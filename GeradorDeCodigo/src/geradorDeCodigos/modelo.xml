@@ -12,6 +12,6 @@
         <campo nome="telefone" tipo="texto" tamanho="12"/>
     </tabela>
     <tabela nome="e">
-        <campo nome="" func="" tamanho="q" tipo="inteiro"></campo>
+        <campo nome="" func="" tamanho="1" tipo="inteiro"></campo>
     </tabela>
 </bd>

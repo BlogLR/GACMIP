@@ -1,20 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package geradorDeCodigos;
 
 import org.xml.sax.Attributes;
 
 /**
  *
- * @author leandro
+ * @author Leandro Rolim
  */
 public class BancoDados {
 
     private String nome = "";
     private Tabela[] tbl = new Tabela[0];
 
+    /**
+     * Define o nome do banco de dados representado
+     * @param nome contém o nome a ser colocado no banco de dados
+     */
     public void setNome(String nome) {
         try {
             this.nome = nome;

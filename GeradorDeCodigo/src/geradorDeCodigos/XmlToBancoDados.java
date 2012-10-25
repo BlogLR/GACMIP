@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package geradorDeCodigos;
 
 import java.io.File;
@@ -17,17 +13,15 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  *
- * @author leandro
+ * @author Leandro Rolim
+ * @param src caminho do arquivo XML Esta classe recebe o endereço do xml com o
+ * modelo do banco de dados e tem funções para fornecer as intruções SQL
+ * (formato MySQL)
  */
 public class XmlToBancoDados extends DefaultHandler {
 
     private Document doc;
     private File xmlFile;
-    private StringBuffer sbSql, sbXML;
-    private String bdNome[] = new String[0];
-    private String[][] tabelas = new String[0][0];
-    private String[][] primario = new String[0][0];
-    private String[][][][] campo = new String[0][0][0][4];
     private BancoDados[] bd = new BancoDados[0];
 
     public XmlToBancoDados(String src) {
@@ -36,9 +30,13 @@ public class XmlToBancoDados extends DefaultHandler {
         } catch (Exception e) {
             System.out.println("Erro ao abrir o arquivo XML\nErro: " + e.getMessage());
         }
-
     }
 
+    /**
+     * função que executa o parser no XML
+     *
+     * @return void
+     */
     public void parser() {
 
         try {
@@ -46,14 +44,9 @@ public class XmlToBancoDados extends DefaultHandler {
             fac.setValidating(true);
             SAXParser parse = fac.newSAXParser();
             parse.parse(xmlFile, this);
-        } catch (ParserConfigurationException | SAXException | IOException e0) {
-            System.out.println("erro: " + e0.getMessage());
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            System.out.println("erro: " + e.getMessage());
         }
-    }
-
-    @Override
-    public void startDocument() {
-        sbSql = new StringBuffer("");
     }
 
     @Override
@@ -93,10 +86,6 @@ public class XmlToBancoDados extends DefaultHandler {
         bd = new BancoDados[tmp.length + 1];
         System.arraycopy(tmp, 0, bd, 0, tmp.length);
         bd[tmp.length].addTabela(attr);
-        sbSql
-                .append("CREATE DATABASE ")
-                .append(bd[tmp.length].getNome())
-                .append("\n");
     }
 
     private void addTable(Attributes attr) {
@@ -116,5 +105,48 @@ public class XmlToBancoDados extends DefaultHandler {
         int nBD = bd.length - 1;
         int nTabela = bd[nBD].getTabela().length - 1;
         addCampo(attr, nBD, nTabela);
+    }
+
+    /**
+     *
+     * @return a String com a instrução sql
+     */
+    public String toSqlString() {
+        StringBuffer sbSql;
+        Tabela tbl[];
+        Campo campo[];
+        if (bd.length > 0) {
+            sbSql = new StringBuffer("CREATE DATABASE ");
+            for (int i = 0; i < bd.length; i++) {
+                sbSql.append(bd[i].getNome()).append("\n");
+                tbl = bd[i].getTabela();
+                for (int j = 0; j < tbl.length; j++) {
+                    sbSql.append("CREATE TABLE ")
+                            .append(tbl[j].getNome())
+                            .append(" { ");
+                    campo = tbl[j].getCampos();
+                    for (int k = 0; k < campo.length; k++) {
+                        if (k > 0) {
+                            sbSql.append(" , ");
+                        }
+                        sbSql
+                                .append(campo[k].getNome())
+                                .append(" ")
+                                .append(campo[k].getTipo())
+                                .append(" ");
+                        if (campo[k].getTamanho() != null) { // se o tamanha for definido
+                            sbSql
+                                    .append("(")
+                                    .append(campo[k].getTamanho())
+                                    .append(") ");
+                        }
+                    }
+                    sbSql.append(" } \n");
+                }
+            }
+            return sbSql.toString();
+        } else {
+            return null;
+        }
     }
 }
