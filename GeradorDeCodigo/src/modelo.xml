@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bd SYSTEM "modelo.dtd">
+<bd nome="soveteria">
+    <tabela nome="clientes">
+        <campo nome="idCliente" tipo="inteiro" auto="true" />
+        <campo nome="nome" tipo="texto" naonulo="false" tamanho="50" />
+        <campo nome="telefone" tipo="texto" tamanho="12" />
+    </tabela>
+    <tabela nome="venderores">
+        <campo nome="idVendedor" tipo="inteiro" />
+        <campo nome="nome" tipo="texto" tamanho="50" />
+        <campo nome="telefone" tipo="texto" tamanho="12" />
+    </tabela>
+    <tabela nome="e">
+        <campo nome="teste01" tamanho="1" tipo="inteiro" />
+    </tabela>
+</bd>

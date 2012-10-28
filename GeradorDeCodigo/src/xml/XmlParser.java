@@ -1,5 +1,6 @@
-package geradorDeCodigos;
+package xml;
 
+import xml.Tabela;
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,13 +19,13 @@ import org.xml.sax.helpers.DefaultHandler;
  * modelo do banco de dados e tem funções para fornecer as intruções SQL
  * (formato MySQL)
  */
-public class XmlToBancoDados extends DefaultHandler {
+public class XmlParser extends DefaultHandler {
 
     private Document doc;
     private File xmlFile;
     private BancoDados[] bd = new BancoDados[0];
 
-    public XmlToBancoDados(String src) {
+    public XmlParser(String src) {
         try {
             xmlFile = new File(src);
         } catch (Exception e) {
@@ -107,46 +108,7 @@ public class XmlToBancoDados extends DefaultHandler {
         addCampo(attr, nBD, nTabela);
     }
 
-    /**
-     *
-     * @return a String com a instrução sql
-     */
-    public String toSqlString() {
-        StringBuffer sbSql;
-        Tabela tbl[];
-        Campo campo[];
-        if (bd.length > 0) {
-            sbSql = new StringBuffer("CREATE DATABASE ");
-            for (int i = 0; i < bd.length; i++) {
-                sbSql.append(bd[i].getNome()).append("\n");
-                tbl = bd[i].getTabela();
-                for (int j = 0; j < tbl.length; j++) {
-                    sbSql.append("CREATE TABLE ")
-                            .append(tbl[j].getNome())
-                            .append(" { ");
-                    campo = tbl[j].getCampos();
-                    for (int k = 0; k < campo.length; k++) {
-                        if (k > 0) {
-                            sbSql.append(" , ");
-                        }
-                        sbSql
-                                .append(campo[k].getNome())
-                                .append(" ")
-                                .append(campo[k].getTipo())
-                                .append(" ");
-                        if (campo[k].getTamanho() != null) { // se o tamanha for definido
-                            sbSql
-                                    .append("(")
-                                    .append(campo[k].getTamanho())
-                                    .append(") ");
-                        }
-                    }
-                    sbSql.append(" } \n");
-                }
-            }
-            return sbSql.toString();
-        } else {
-            return null;
-        }
+    public BancoDados[] getBD(){
+        return this.bd;
     }
 }

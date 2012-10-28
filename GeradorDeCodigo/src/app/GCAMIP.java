@@ -1,4 +1,7 @@
-package geradorDeCodigos;
+package app;
+
+import sql.sqlGerador;
+import xml.XmlParser;
 
 /**
  * Gerador de Código Automático a partir de Modelo Idependente de Plataforma
@@ -15,13 +18,15 @@ public class GCAMIP {
      */
     public static void main(String[] args) {
         String src;
+        sqlGerador sqlG;
         if (args.length > 1) {
             src = args[1];
         } else {
-            src = "\"src/gcamip/modelo.xml\"";
+            src = "src/modelo.xml";
         }
-        XmlToBancoDados xml = new XmlToBancoDados(src);
+        XmlParser xml = new XmlParser(src);
         xml.parser();
-        System.out.println(xml.toSqlString());
+        sqlG = new sqlGerador(xml.getBD());
+        System.out.println(sqlG.gerarSql());
     }
 }

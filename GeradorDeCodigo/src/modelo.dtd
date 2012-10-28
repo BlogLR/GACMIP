@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!ELEMENT bd (tabela)*>
+<!ATTLIST bd
+    nome CDATA #IMPLIED
+  >
+
+<!ELEMENT tabela (campo)*>
+<!ATTLIST tabela
+    nome CDATA #IMPLIED
+  >
+
+<!ELEMENT campo EMPTY>
+<!ATTLIST campo
+    tamanho CDATA #IMPLIED
+    naonulo CDATA #IMPLIED
+    auto CDATA #IMPLIED
+    tipo CDATA #IMPLIED
+    nome CDATA #IMPLIED
+  >
