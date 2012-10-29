@@ -81,14 +81,22 @@ public class Campo {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public String getTipo() {
-        return tipo;
+        return this.tipo;
     }
 
     public int getTamanho() {
-        return tamanho;
+        return this.tamanho;
+    }
+    
+    public boolean getPrimario(){
+        return this.primario;
+    }
+    
+    public boolean getNaoNulo(){
+        return this.nao_nulo;
     }
 }

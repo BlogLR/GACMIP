@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sql;
 
 import xml.BancoDados;
 import xml.Campo;
 import xml.Tabela;
 
-/**
- *
- * @author Leandro Rolim
- */
 public class sqlGerador {
 
     BancoDados bd[];
@@ -32,12 +24,12 @@ public class sqlGerador {
             sbSql = new StringBuffer("");
             for (int i = 0; i < bd.length; i++) {
                 sbSql
-                        .append("CREATE DATABASE `")
+                        .append("CREATE DATABASE IF NOT EXISTS `")
                         .append(bd[i].getNome())
                         .append("` \n");
                 tbl = bd[i].getTabela();
                 for (int j = 0; j < tbl.length; j++) {
-                    sbSql.append("CREATE TABLE `")
+                    sbSql.append("CREATE TABLE IF NOT EXISTS `")
                             .append(bd[i].getNome())
                             .append("`.`")
                             .append(tbl[j].getNome())
@@ -45,7 +37,7 @@ public class sqlGerador {
                     campo = tbl[j].getCampos();
                     for (int k = 0; k < campo.length; k++) {
                         if (k > 0) {
-                            sbSql.append(" , ");
+                            sbSql.append(", ");
                         }
                         sbSql
                                 .append("`")
@@ -59,8 +51,18 @@ public class sqlGerador {
                                     .append(campo[k].getTamanho())
                                     .append(") ");
                         }
+
+                        if (campo[k].getPrimario()) {
+                            sbSql.append("PRIMARY KEY ");
+                        }
+                        if (campo[k].getNaoNulo()) {
+                            sbSql.append("NOT NULL ");
+                        } else {
+                            sbSql.append("NULL ");
+                        }
+
                     }
-                    sbSql.append(" } \n");
+                    sbSql.append(" }\n\n");
                 }
             }
             return sbSql.toString();
