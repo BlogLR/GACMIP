@@ -1,6 +1,5 @@
 package xml;
 
-import xml.Tabela;
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -56,15 +55,13 @@ public class XmlParser extends DefaultHandler {
             case "bd":
                 addDb(attr);
                 break;
-            case "table":
+            case "tabela":
                 addTable(attr);
                 break;
             case "campo":
                 addCampo(attr);
                 break;
         }
-
-        System.out.println("qName: " + qName);
     }
 
     @Override
@@ -86,26 +83,19 @@ public class XmlParser extends DefaultHandler {
         BancoDados tmp[] = this.bd;
         bd = new BancoDados[tmp.length + 1];
         System.arraycopy(tmp, 0, bd, 0, tmp.length);
-        bd[tmp.length].addTabela(attr);
+        bd[tmp.length] = new BancoDados(attr);
     }
 
     private void addTable(Attributes attr) {
-        int n = bd.length - 1;
-        addTable(attr, n);
-    }
-
-    private void addTable(Attributes attr, int nBD) {
+        int nBD = bd.length - 1;
         bd[nBD].addTabela(attr);
     }
 
-    private void addCampo(Attributes attr, int nBD, int nTabela) {
-        bd[nBD].getTabela()[nTabela].addCampo(attr);
-    }
-
     private void addCampo(Attributes attr) {
-        int nBD = bd.length - 1;
-        int nTabela = bd[nBD].getTabela().length - 1;
-        addCampo(attr, nBD, nTabela);
+        int n = bd.length - 1;
+        Tabela tbl[] = bd[n].getTabela();
+        n = tbl.length-1;
+        tbl[n].addCampo(attr);
     }
 
     public BancoDados[] getBD(){

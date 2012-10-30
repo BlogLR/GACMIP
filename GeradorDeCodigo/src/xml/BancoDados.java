@@ -28,7 +28,9 @@ public class BancoDados {
     public void addTabela(Attributes attr) {
         Tabela[] tmp = this.tbl;
         this.tbl = new Tabela[tmp.length + 1];
+        
         System.arraycopy(tmp, 0, this.tbl, 0, tmp.length);
+        
         this.tbl[tmp.length] = new Tabela(attr);
     }
 

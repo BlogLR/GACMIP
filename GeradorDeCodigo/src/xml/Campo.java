@@ -8,7 +8,7 @@ import org.xml.sax.Attributes;
  * @author Leandro Rolim
  */
 public class Campo {
-    
+
     private String tipos[][] = {
         {"inteiro", "INT"},
         {"decimal", "DECIMAL"},
@@ -18,16 +18,16 @@ public class Campo {
         {"data", "DATE"}
     };
     private String nome = "",
-            tipo = "";
+            tipo = "",
+            tamanho = null;
     private boolean primario = false,
             nao_nulo = false,
             auto = false;
-    private int tamanho = 0;
 
-    public Campo(Attributes  attr) {
+    public Campo(Attributes attr) {
         this.setAttr(attr);
     }
-    
+
     private void setAttr(Attributes attr) {
         try {
             // atributo 'nome'
@@ -62,7 +62,7 @@ public class Campo {
             }
             // atributo 'tamanho'
             if (attr.getIndex("tamanho") >= 0) {
-                tamanho = (int) Double.parseDouble(attr.getValue("tamanho"));
+                this.tamanho = attr.getValue("tamanho");
             }
         } catch (NumberFormatException e) {
             System.out.println("setAttr: " + e.getMessage());
@@ -88,15 +88,19 @@ public class Campo {
         return this.tipo;
     }
 
-    public int getTamanho() {
+    public String getTamanho() {
         return this.tamanho;
     }
-    
-    public boolean getPrimario(){
+
+    public boolean getPrimario() {
         return this.primario;
     }
-    
-    public boolean getNaoNulo(){
+
+    public boolean getNaoNulo() {
         return this.nao_nulo;
+    }
+
+    public boolean getAuto() {
+        return this.auto;
     }
 }

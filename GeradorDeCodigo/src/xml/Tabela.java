@@ -8,7 +8,7 @@ import org.xml.sax.Attributes;
 
 /**
  *
- * @author leandro
+ * @author Leandro Rolim
  */
 public class Tabela {
 
@@ -30,11 +30,8 @@ public class Tabela {
     public void addCampo(Attributes attr) {
         Campo[] tmp = this.campos;
         this.campos = new Campo[tmp.length + 1];
-
         System.arraycopy(tmp, 0, this.campos, 0, tmp.length);
-
         this.campos[tmp.length] = new Campo(attr);
-
     }
 
     public String getNome() {

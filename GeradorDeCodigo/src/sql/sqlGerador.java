@@ -26,7 +26,7 @@ public class sqlGerador {
                 sbSql
                         .append("CREATE DATABASE IF NOT EXISTS `")
                         .append(bd[i].getNome())
-                        .append("` \n");
+                        .append("`\n");
                 tbl = bd[i].getTabela();
                 for (int j = 0; j < tbl.length; j++) {
                     sbSql.append("CREATE TABLE IF NOT EXISTS `")
@@ -45,7 +45,7 @@ public class sqlGerador {
                                 .append("` ")
                                 .append(campo[k].getTipo())
                                 .append(" ");
-                        if (campo[k].getTamanho() > 0) { // se o tamanha for definido
+                        if (campo[k].getTamanho() != null) { // se o tamanha for definido
                             sbSql
                                     .append("(")
                                     .append(campo[k].getTamanho())
