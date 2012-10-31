@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE bd SYSTEM "modelo.dtd">
-<bd nome="soveteria">
+<bd nome="sorveteria">
     <tabela nome="clientes">
         <campo nome="idCliente" tipo="inteiro" auto="true" primario="true"/>
         <campo nome="nome" tipo="texto" naonulo="false" tamanho="50" />

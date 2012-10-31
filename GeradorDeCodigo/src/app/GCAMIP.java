@@ -1,5 +1,8 @@
 package app;
 
+import java.sql.ResultSet;
+import java.util.Scanner;
+import sql.ConectorMySql;
 import sql.sqlGerador;
 import xml.XmlParser;
 
@@ -12,12 +15,14 @@ import xml.XmlParser;
 public class GCAMIP {
 
     /**
-     * Iniciar a aplicação
      *
      * @param args recebe os argumentos de linha de comando
      */
     public static void main(String[] args) {
-        String src;
+        String src,
+                url = "jdbc:mysql://localhost:3306",
+                usuario = "root",
+                senha = ""; //colocar a senha aqui
         sqlGerador sqlG;
         if (args.length > 1) {
             src = args[1];
@@ -28,6 +33,22 @@ public class GCAMIP {
         xml.parser();
         sqlG = new sqlGerador(xml.getBD());
         sqlG.gerarSql();
-        System.out.println(sqlG.toString());
+        
+        ConectorMySql cMysql = new ConectorMySql(url, usuario, senha);
+
+        for (int i = 0; i < sqlG.toStringArray().length; i++) {
+            System.out.println(sqlG.toStringArray()[i]);
+            cMysql.atualizar(sqlG.toStringArray()[i]);
+        }
+    }
+
+    private String ler(String valorPadrao) {
+        String str;
+        Scanner scan = new Scanner(System.in);
+        str = scan.nextLine();
+        if (str != null) {
+            return str;
+        }
+        return valorPadrao;
     }
 }

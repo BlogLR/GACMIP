@@ -7,7 +7,7 @@ import xml.Tabela;
 public class sqlGerador {
 
     BancoDados bd[];
-    String sql;
+    String sql[] = new String[0];
 
     public sqlGerador(BancoDados bd[]) {
         this.bd = bd;
@@ -27,14 +27,16 @@ public class sqlGerador {
                 sbSql
                         .append("CREATE DATABASE IF NOT EXISTS `")
                         .append(bd[i].getNome())
-                        .append("`\n");
+                        .append("`");
+                addSQL(sbSql.toString());
+                sbSql = new StringBuffer("");
                 tbl = bd[i].getTabela();
                 for (int j = 0; j < tbl.length; j++) {
                     sbSql.append("CREATE TABLE IF NOT EXISTS `")
                             .append(bd[i].getNome())
                             .append("`.`")
                             .append(tbl[j].getNome())
-                            .append("` { ");
+                            .append("` ( ");
                     campo = tbl[j].getCampos();
                     for (int k = 0; k < campo.length; k++) {
                         if (k > 0) {
@@ -63,20 +65,27 @@ public class sqlGerador {
                         }
 
                     }
-                    sbSql.append(" }\n\n");
+                    sbSql.append(")");
+                    addSQL(sbSql.toString());
+                    sbSql = new StringBuffer("");
                 }
             }
-            this.sql = sbSql.toString();
-        } else {
-            this.sql = null;
+
         }
     }
+
     /**
-     * 
+     *
      * @return String com instrução SQL
      */
-    @Override
-    public String toString(){
+    public String[] toStringArray() {
         return this.sql;
+    }
+
+    private void addSQL(String str) {
+        String[] tmp = this.sql;
+        this.sql = new String[tmp.length + 1];
+        System.arraycopy(tmp, 0, this.sql, 0, tmp.length);
+        this.sql[tmp.length] = str;
     }
 }
