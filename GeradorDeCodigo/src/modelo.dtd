@@ -14,6 +14,7 @@
 <!ATTLIST campo
     tamanho CDATA #IMPLIED
     naonulo CDATA #IMPLIED
+    primario CDATA #IMPLIED
     auto CDATA #IMPLIED
     tipo CDATA #IMPLIED
     nome CDATA #IMPLIED
