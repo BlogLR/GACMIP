@@ -7,6 +7,7 @@ import xml.Tabela;
 public class sqlGerador {
 
     BancoDados bd[];
+    String sql;
 
     public sqlGerador(BancoDados bd[]) {
         this.bd = bd;
@@ -16,7 +17,7 @@ public class sqlGerador {
      *
      * @return a String com a instrução sql
      */
-    public String gerarSql() {
+    public void gerarSql() {
         StringBuffer sbSql;
         Tabela tbl[];
         Campo campo[];
@@ -65,9 +66,17 @@ public class sqlGerador {
                     sbSql.append(" }\n\n");
                 }
             }
-            return sbSql.toString();
+            this.sql = sbSql.toString();
         } else {
-            return null;
+            this.sql = null;
         }
+    }
+    /**
+     * 
+     * @return String com instrução SQL
+     */
+    @Override
+    public String toString(){
+        return this.sql;
     }
 }
