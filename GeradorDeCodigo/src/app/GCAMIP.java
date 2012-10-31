@@ -27,6 +27,7 @@ public class GCAMIP {
         XmlParser xml = new XmlParser(src);
         xml.parser();
         sqlG = new sqlGerador(xml.getBD());
-        System.out.println(sqlG.gerarSql());
+        sqlG.gerarSql();
+        System.out.println(sqlG.toString());
     }
 }
