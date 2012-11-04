@@ -10,16 +10,19 @@ import org.xml.sax.Attributes;
 public class Campo {
 
     private String tipos[][] = {
-        {"inteiro", "INT"},
-        {"decimal", "DECIMAL"},
-        {"caracteres", "VARCHAR"},
-        {"texto", "TEXT"},
-        {"logico", "BOOLEAN"},
-        {"data", "DATE"}
+        {"inteiro", "INT", "11"},
+        {"string", "VARCHAR", "255"},
+        {"texto", "TEXT", null},
+        {"flutuante", "FLOAT", null},
+        {"data", "DATE", null},
+        {"timestamp", "DATETIME", null},
+        {"hora", "time", null},
+        {"binario", "BLOB", null},
+        {"boleano", "TINYINT", "1"}
     };
     private String nome = "",
-            tipo = "",
-            tamanho = null;
+            tipo = "VARCHAR",
+            tamanho = "255";
     private boolean primario = false,
             nao_nulo = false,
             auto = false;
@@ -75,6 +78,7 @@ public class Campo {
         for (int i = 0; i < this.tipos.length; i++) {
             if (this.tipos[i][0].equals(tipo)) {
                 this.tipo = this.tipos[i][1];
+                this.tamanho = this.tipos[i][2];
                 return;
             }
         }
