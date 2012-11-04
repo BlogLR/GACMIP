@@ -1,15 +1,30 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
+<!-- Elemento bd usado para definir um Banco de Dados, pode conter várias tabelas
+     Atributo nome(obrigatório) deve conter uma string somente com o alfabeto em caixa abaixa
+ -->
 <!ELEMENT bd (tabela)*>
 <!ATTLIST bd
     nome CDATA #IMPLIED
   >
+<!-- Elemento tabela usado para definir as tabelas, pode conter várias campos
+     Atributo nome(obrigatório) deve conter uma string de preferencia no plural
+ -->
 
 <!ELEMENT tabela (campo)*>
 <!ATTLIST tabela
     nome CDATA #IMPLIED
   >
-
+<!-- 
+    Elemento campo usado para definir as calunas da tabela
+    Atributo nome(obrigatório) deve conter uma string alfanumérico
+    Atributo tamanho(opcional) inteiro que define o tamanho do campo
+    Atributo naonulo(opcional) definir com o valor true caso o campo não posso ser nulo
+    Atributo primario(opcional) definir que o campo será usado como chave primária
+    Atributo auto(opcional) definir que o campo será autoinclentado
+    Atributo tipo(opcional) se não for definido será usado como padrão o tipo string, 
+        pode ser usado os seguintes tipos: string, inteiro, flutuante,texto,datahora,hora,data,
+        timestamp,binario e boleano.
+ -->
 <!ELEMENT campo EMPTY>
 <!ATTLIST campo
     tamanho CDATA #IMPLIED
