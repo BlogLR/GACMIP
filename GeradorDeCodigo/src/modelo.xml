@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE bd SYSTEM "modelo.dtd">
-<bd nome="sorveteria">
-    <tabela nome="clientes">
-        <campo nome="idCliente" tipo="inteiro" auto="true" primario="true"/>
-        <campo nome="nome" tipo="texto" naonulo="false" tamanho="50" />
-        <campo nome="telefone" tipo="texto" naonulo="true" tamanho="12" />
+<bd nome="loja">
+    <tabela nome="Categorias">
+        <campo nome="Nome" />
     </tabela>
-    <tabela nome="venderores">
-        <campo nome="idVendedor" tipo="inteiro" />
-        <campo nome="nome" tipo="texto" tamanho="50" />
-        <campo nome="telefone" tipo="texto" tamanho="12" />
+    <tabela nome="Produtos">
+        <campo naonulo="true" nome="Descrição" tipo="string" />
+        <campo nome="Quantidade" naonulo="true" tipo="inteiro" />
     </tabela>
-    <tabela nome="e">
-        <campo nome="teste01" tamanho="1" tipo="inteiro" />
-    </tabela>
+    <relacao tabela_referecia="Produtos" tabela_extrangeira="Categorias" tipo="umxmuitos" />
 </bd>
