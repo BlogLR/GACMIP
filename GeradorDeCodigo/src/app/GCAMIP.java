@@ -1,7 +1,5 @@
 package app;
 
-import java.sql.ResultSet;
-import java.util.Scanner;
 import sql.ConectorMySql;
 import sql.sqlGerador;
 import xml.XmlParser;
@@ -40,15 +38,5 @@ public class GCAMIP {
             System.out.println(sqlG.toStringArray()[i]);
             cMysql.atualizar(sqlG.toStringArray()[i]);
         }
-    }
-
-    private String ler(String valorPadrao) {
-        String str;
-        Scanner scan = new Scanner(System.in);
-        str = scan.nextLine();
-        if (str != null) {
-            return str;
-        }
-        return valorPadrao;
     }
 }
