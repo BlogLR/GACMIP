@@ -35,6 +35,6 @@
 <!ELEMENT relacao EMPTY>
 <!ATTLIST relacao
     tabela_referecia CDATA #REQUIRED
-    tabela_extrangeira CDATA #REQUIRED
+    tabela_estrangeira CDATA #REQUIRED
     tipo (umxum|umxmuitos|muitosxmuitos) "umxmuitos"
   >
