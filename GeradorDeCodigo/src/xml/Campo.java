@@ -15,7 +15,7 @@ public class Campo {
         {"texto", "TEXT", null},
         {"flutuante", "FLOAT", null},
         {"data", "DATE", null},
-        {"timestamp", "DATETIME", null},
+        {"datahora", "DATETIME", null},
         {"hora", "time", null},
         {"binario", "BLOB", null},
         {"boleano", "TINYINT", "1"}
@@ -23,7 +23,7 @@ public class Campo {
     private String nome = "",
             tipo = "VARCHAR",
             tamanho = "255";
-    private boolean primario = false,
+    private boolean unico = false,
             nao_nulo = false,
             auto = false;
 
@@ -51,10 +51,10 @@ public class Campo {
                     this.nao_nulo = true;
                 }
             }
-            // atributo 'primario'
-            if (attr.getIndex("primario") >= 0) {
-                if (attr.getValue("primario").equals("true")) {
-                    this.primario = true;
+            // atributo 'unico'
+            if (attr.getIndex("unico") >= 0) {
+                if (attr.getValue("unico").equals("true")) {
+                    this.unico = true;
                 }
             }
             // atributo 'auto'
@@ -62,10 +62,6 @@ public class Campo {
                 if (attr.getValue("auto").equals("true")) {
                     this.auto = true;
                 }
-            }
-            // atributo 'tamanho'
-            if (attr.getIndex("tamanho") >= 0) {
-                this.tamanho = attr.getValue("tamanho");
             }
         } catch (NumberFormatException e) {
             System.out.println("setAttr: " + e.getMessage());
@@ -97,7 +93,7 @@ public class Campo {
     }
 
     public boolean getPrimario() {
-        return this.primario;
+        return this.unico;
     }
 
     public boolean getNaoNulo() {
