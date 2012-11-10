@@ -2,7 +2,7 @@
 <!-- Elemento bd usado para definir um Banco de Dados, pode conter várias tabelas
      Atributo nome(obrigatório) deve conter uma string somente com o alfabeto em caixa abaixa
  -->
-<!ELEMENT bd (tabela)*>
+<!ELEMENT bd (tabela|relacao)*>
 <!ATTLIST bd
     nome CDATA #IMPLIED
   >
@@ -17,20 +17,24 @@
 <!-- 
     Elemento campo usado para definir as calunas da tabela
     Atributo nome(obrigatório) deve conter uma string alfanumérico
-    Atributo tamanho(opcional) inteiro que define o tamanho do campo
     Atributo naonulo(opcional) definir com o valor true caso o campo não posso ser nulo
-    Atributo primario(opcional) definir que o campo será usado como chave primária
+    Atributo unico(opcional) definir que o campo não receberá valor que já tiver sido inserido em outro registro
     Atributo auto(opcional) definir que o campo será autoinclentado
     Atributo tipo(opcional) se não for definido será usado como padrão o tipo string, 
         pode ser usado os seguintes tipos: string, inteiro, flutuante,texto,datahora,hora,data,
-        timestamp,binario e boleano.
+        timestamp,binario e booleano.
  -->
 <!ELEMENT campo EMPTY>
 <!ATTLIST campo
-    tamanho CDATA #IMPLIED
-    naonulo CDATA #IMPLIED
-    primario CDATA #IMPLIED
-    auto CDATA #IMPLIED
-    tipo CDATA #IMPLIED
-    nome CDATA #IMPLIED
+    naonulo (true|false) "false"
+    unico (true|false) "false"
+    auto (true|false) "false"
+    tipo (string|texto|inteiro|flutuante|datahota|data|hora|binario|booleano) "string"
+    nome CDATA #REQUIRED
+  >
+<!ELEMENT relacao EMPTY>
+<!ATTLIST relacao
+    tabela_referecia CDATA #REQUIRED
+    tabela_extrangeira CDATA #REQUIRED
+    tipo (umxum|umxmuitos|muitosxmuitos) "umxmuitos"
   >
