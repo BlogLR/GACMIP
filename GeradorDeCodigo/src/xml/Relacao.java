@@ -4,6 +4,8 @@
  */
 package xml;
 
+import org.xml.sax.Attributes;
+
 /**
  *
  * @author Leandro Rolim
@@ -14,10 +16,10 @@ public class Relacao {
             tblReferencia = null,
             tipo = "umxmuitos";
 
-    public Relacao(String estrageiro, String referencia, String tipo) {
-        this.tblEstrangeira = estrageiro;
-        this.tblReferencia = referencia;
-        this.tipo = tipo;
+    public Relacao(Attributes attr) {
+        this.tblEstrangeira = attr.getValue("tabela_estrangeira");
+        this.tblReferencia = attr.getValue("tabela_referecia");
+        this.tipo = attr.getValue("tipo");
     }
 
     public String getEstrangeiro() {
