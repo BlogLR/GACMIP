@@ -2,6 +2,7 @@ package sql;
 
 import xml.BancoDados;
 import xml.Campo;
+import xml.Relacao;
 import xml.Tabela;
 
 public class sqlGerador {
@@ -21,6 +22,7 @@ public class sqlGerador {
         StringBuffer sbSql;
         Tabela tbl[];
         Campo campo[];
+        Relacao rel[];
         if (bd.length > 0) {
             sbSql = new StringBuffer("");
             for (int i = 0; i < bd.length; i++) {
@@ -36,12 +38,10 @@ public class sqlGerador {
                             .append(bd[i].getNome())
                             .append("`.`")
                             .append(tbl[j].getNome())
-                            .append("` ( ");
+                            .append("` ( `id` INT (11) NULL AUTO_INCREMENT "); //campo id será add em todas as tabelas
                     campo = tbl[j].getCampos();
                     for (int k = 0; k < campo.length; k++) {
-                        if (k > 0) {
-                            sbSql.append(", ");
-                        }
+                        sbSql.append(", ");
                         sbSql
                                 .append("`")
                                 .append(campo[k].getNome())
@@ -55,9 +55,6 @@ public class sqlGerador {
                                     .append(") ");
                         }
 
-                        if (campo[k].getPrimario()) {
-                            sbSql.append("PRIMARY KEY ");
-                        }
                         if (campo[k].getNaoNulo()) {
                             sbSql.append("NOT NULL ");
                         } else {
@@ -65,11 +62,84 @@ public class sqlGerador {
                         }
 
                     }
-                    sbSql.append(")");
+                    sbSql.append(", PRIMARY KEY (`id`)) ENGINE=InnoDB ");
                     addSQL(sbSql.toString());
                     sbSql = new StringBuffer("");
                 }
+                rel = this.bd[i].getRelacao();
+                for (int j = 0; j < rel.length; j++) {
+                    switch (rel[j].getTipo()) {
+                        case "umxmuitos":
+                            //ALTER TABLE  `Produtos` ADD  `Categorias_id` INT( 11 ) NULL AFTER  `id`
+                            String chaveEstra = rel[j].getReferencia() + "_id";
+                            sbSql
+                                    .append("ALTER TABLE `")
+                                    .append(bd[i].getNome())
+                                    .append("`.`")
+                                    .append(rel[j].getEstrangeiro())
+                                    .append("` ADD `")
+                                    .append(chaveEstra)
+                                    .append("` INT(11) NOT NULL AFTER `id` , ADD INDEX (`")
+                                    .append(chaveEstra)
+                                    .append("`),  ADD FOREIGN KEY ( `")
+                                    .append(chaveEstra)
+                                    .append("` ) REFERENCES  `")
+                                    .append(bd[i].getNome())
+                                    .append("`.`")
+                                    .append(rel[j].getReferencia())
+                                    .append("` (`id`) ");
+                            this.addSQL(sbSql.toString());
+                            break;
+                        case "muitosxmuitos":
+                            String tblLink = bd[i].getNome()+"`.`"+rel[j].getReferencia() + "_" + rel[j].getEstrangeiro();
+                            String tbls[] = {rel[j].getReferencia(), rel[j].getEstrangeiro()};
+                            sbSql
+                                    .append("CREATE TABLE IF NOT EXISTS `")
+                                    .append(tblLink)
+                                    .append("` ( `id` INT (11) NULL AUTO_INCREMENT , `")
+                                    .append(rel[j].getReferencia())
+                                    .append("_id` INT (11) NOT NULL , `")
+                                    .append(rel[j].getEstrangeiro())
+                                    .append("_id` INT (11) NOT NULL ,PRIMARY KEY (`id`) , KEY (`")
+                                    .append(rel[j].getReferencia())
+                                    .append("_id` , `")
+                                    .append(rel[j].getEstrangeiro())
+                                    .append("_id` ) , FOREIGN KEY ( `")
+                                    .append(rel[j].getReferencia())
+                                    .append("_id` ) REFERENCES `")
+                                    .append(bd[i].getNome())
+                                    .append("`.`")
+                                    .append(rel[j].getReferencia())
+                                    .append("` (`id`) , FOREIGN KEY ( `")
+                                    .append(rel[j].getEstrangeiro())
+                                    .append("_id` ) REFERENCES `")
+                                    .append(bd[i].getNome())
+                                    .append("`.`")
+                                    .append(rel[j].getEstrangeiro())
+                                    .append("` (`id`) ) ENGINE=InnoDB");
+                            this.addSQL(sbSql.toString());
+                            /*
+                            for (int k = 0; k < 2; k++) {
+                                sbSql = new StringBuffer("");
+                                sbSql
+                                        .append("ALTER TABLE `")
+                                        .append(tblLink)
+                                        .append("` ADD FOREIGN KEY ( `")
+                                        .append(tbls[k])
+                                        .append("_id` ) REFERENCES  `")
+                                        .append(bd[i].getNome())
+                                        .append("`.`")
+                                        .append(tbls[k])
+                                        .append("` (`id`) ");
+                                this.addSQL(sbSql.toString());
+                            }
+                            */
+                            break;
+                    }
+                    sbSql = new StringBuffer("");
+                }
             }
+
 
         }
     }

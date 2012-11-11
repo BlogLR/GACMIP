@@ -1,6 +1,5 @@
 package app;
 
-import java.util.Scanner;
 import sql.ConectorMySql;
 import sql.sqlGerador;
 import xml.XmlParser;
@@ -21,7 +20,7 @@ public class GCAMIP {
         String src,
                 url = "jdbc:mysql://localhost:3306",
                 usuario = "root",
-                senha = ""; //colocar a senha aqui
+                senha = "153426"; //colocar a senha aqui
         sqlGerador sqlG;
         if (args.length > 1) {
             src = args[1];
@@ -32,12 +31,15 @@ public class GCAMIP {
         xml.parser();
         sqlG = new sqlGerador(xml.getBD());
         sqlG.gerarSql();
-        
-        ConectorMySql cMysql = new ConectorMySql(url, usuario, senha);
-
-        for (int i = 0; i < sqlG.toStringArray().length; i++) {
-            System.out.println(sqlG.toStringArray()[i]);
-            cMysql.atualizar(sqlG.toStringArray()[i]);
+        try {
+            ConectorMySql cMysql = new ConectorMySql(url, usuario, senha);
+            
+            for (int i = 0; i < sqlG.toStringArray().length; i++) {
+                System.out.println(sqlG.toStringArray()[i]);
+                cMysql.atualizar(sqlG.toStringArray()[i]);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro durante a atualização do MySQL");
         }
     }
 }

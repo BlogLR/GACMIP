@@ -61,6 +61,9 @@ public class XmlParser extends DefaultHandler {
             case "campo":
                 addCampo(attr);
                 break;
+            case "relacao":
+                addRelacao(attr);
+                break;
         }
     }
 
@@ -80,25 +83,45 @@ public class XmlParser extends DefaultHandler {
     }
 
     private void addDb(Attributes attr) {
-        BancoDados tmp[] = this.bd;
-        bd = new BancoDados[tmp.length + 1];
-        System.arraycopy(tmp, 0, bd, 0, tmp.length);
-        bd[tmp.length] = new BancoDados(attr);
+        try {
+            BancoDados tmp[] = this.bd;
+            bd = new BancoDados[tmp.length + 1];
+            System.arraycopy(tmp, 0, bd, 0, tmp.length);
+            bd[tmp.length] = new BancoDados(attr);
+        } catch (Exception e) {
+            System.out.println("Erro ler tag \'db\': "+e.getMessage());
+        }
     }
 
     private void addTable(Attributes attr) {
-        int nBD = bd.length - 1;
-        bd[nBD].addTabela(attr);
+        try {
+            int nBD = bd.length - 1;
+            bd[nBD].addTabela(attr);
+        } catch (Exception e) {
+            System.out.println("Erro ler tag \'table\': "+e.getMessage());
+        }
+    }
+    private void addRelacao(Attributes attr) {
+        try {
+            int nBD = bd.length - 1;
+            bd[nBD].addRelacao(attr);
+        } catch (Exception e) {
+            System.out.println("Erro ler tag \'relacao\': "+e.getMessage());
+        }
     }
 
     private void addCampo(Attributes attr) {
-        int n = bd.length - 1;
-        Tabela tbl[] = bd[n].getTabela();
-        n = tbl.length-1;
-        tbl[n].addCampo(attr);
+        try {
+            int n = bd.length - 1;
+            Tabela tbl[] = bd[n].getTabela();
+            n = tbl.length - 1;
+            tbl[n].addCampo(attr);
+        } catch (Exception e) {
+            System.out.println("Erro ler tag \'campo\': "+e.getMessage());
+        }
     }
 
-    public BancoDados[] getBD(){
+    public BancoDados[] getBD() {
         return this.bd;
     }
 }

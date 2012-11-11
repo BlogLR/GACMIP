@@ -8,5 +8,9 @@
         <campo naonulo="true" nome="Descrição" tipo="string" />
         <campo nome="Quantidade" naonulo="true" tipo="inteiro" />
     </tabela>
-    <relacao tabela_referecia="Produtos" tabela_estrangeira="Categorias" tipo="umxmuitos" />
+    <tabela nome="Tags">
+        <campo nome="tag" tipo="string" unico="true" naonulo="true" />
+    </tabela>
+    <relacao tabela_referecia="Categorias" tabela_estrangeira="Produtos" tipo="umxmuitos" />
+    <relacao tabela_referecia="Tags" tabela_estrangeira="Produtos" tipo="muitosxmuitos" />
 </bd>
