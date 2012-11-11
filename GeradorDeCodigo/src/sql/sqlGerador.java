@@ -118,22 +118,9 @@ public class sqlGerador {
                                     .append(rel[j].getEstrangeiro())
                                     .append("` (`id`) ) ENGINE=InnoDB");
                             this.addSQL(sbSql.toString());
-                            /*
-                            for (int k = 0; k < 2; k++) {
-                                sbSql = new StringBuffer("");
-                                sbSql
-                                        .append("ALTER TABLE `")
-                                        .append(tblLink)
-                                        .append("` ADD FOREIGN KEY ( `")
-                                        .append(tbls[k])
-                                        .append("_id` ) REFERENCES  `")
-                                        .append(bd[i].getNome())
-                                        .append("`.`")
-                                        .append(tbls[k])
-                                        .append("` (`id`) ");
-                                this.addSQL(sbSql.toString());
-                            }
-                            */
+                            break;
+                        case "umxum":
+                            //falta implementar
                             break;
                     }
                     sbSql = new StringBuffer("");
