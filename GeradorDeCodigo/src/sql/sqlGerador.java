@@ -92,7 +92,6 @@ public class sqlGerador {
                             break;
                         case "muitosxmuitos":
                             String tblLink = bd[i].getNome()+"`.`"+rel[j].getReferencia() + "_" + rel[j].getEstrangeiro();
-                            String tbls[] = {rel[j].getReferencia(), rel[j].getEstrangeiro()};
                             sbSql
                                     .append("CREATE TABLE IF NOT EXISTS `")
                                     .append(tblLink)
@@ -126,8 +125,6 @@ public class sqlGerador {
                     sbSql = new StringBuffer("");
                 }
             }
-
-
         }
     }
 
