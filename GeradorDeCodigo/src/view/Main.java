@@ -40,7 +40,6 @@ public class Main extends javax.swing.JFrame {
         txtAbrir = new javax.swing.JTextField();
         txtDefinir = new javax.swing.JTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -76,21 +75,10 @@ public class Main extends javax.swing.JFrame {
         });
 
         txtAbrir.setText("nenhum");
+        txtAbrir.setEnabled(false);
 
         txtDefinir.setText("nenhum");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 736, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 224, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("PHP 5", jPanel2);
+        txtDefinir.setEnabled(false);
 
         jLabel3.setText("Local:");
 
@@ -107,8 +95,10 @@ public class Main extends javax.swing.JFrame {
         txtUsuario.setText("root");
 
         cbNovoUsuario.setText("Criar um novo usuário no MySQL para manipular o novo Banco de Dados?");
+        cbNovoUsuario.setEnabled(false);
 
         jButton1.setText("Gerar o modelo.sql");
+        jButton1.setEnabled(false);
 
         gerarBD.setText("Gerar o Banco de Dados no MySQL");
         gerarBD.addActionListener(new java.awt.event.ActionListener() {
@@ -287,11 +277,11 @@ public class Main extends javax.swing.JFrame {
 
     private void gerarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarBDActionPerformed
         this.controlador.gerarBD(
-                this.txtLocal.getText(), 
-                this.txtPorta.getText(), 
-                this.txtUsuario.getText(), 
-                new String (this.txtSenha.getPassword())
-                );
+            this.txtLocal.getText(),
+            this.txtPorta.getText(),
+            this.txtUsuario.getText(),
+            new String (this.txtSenha.getPassword())
+        );
     }//GEN-LAST:event_gerarBDActionPerformed
 
     /**
@@ -341,7 +331,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField txtAbrir;
     private javax.swing.JTextField txtDefinir;
