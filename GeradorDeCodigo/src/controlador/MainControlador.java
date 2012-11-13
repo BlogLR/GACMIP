@@ -1,5 +1,9 @@
 package controlador;
 
+import java.io.FileNotFoundException;
+import java.util.Formatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sql.ConectorMySql;
 import sql.sqlGerador;
 import xml.XmlParser;
@@ -39,11 +43,23 @@ public class MainControlador {
                 cMysql.atualizar(strSql[i]);
             }
         } catch (Exception e) {
-            System.out.println("Erro durante a atualização do MySQL");
+            System.err.println("Erro durante a atualização do MySQL");
         }
     }
-    
-    public void salvarSQL(String destino){
-        
+
+    public void salvarSQL(String destino) {
+        String str[];
+        str = this.getSQL(this.src);
+        Formatter saida = null;
+        try {
+            saida = new Formatter(destino);
+            saida.flush();
+            for (int i=0;i<str.length;i++){
+                saida.format("%s ;\n\n", str[i]);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainControlador.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        saida.close();
     }
 }

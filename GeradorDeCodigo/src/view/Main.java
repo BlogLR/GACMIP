@@ -98,7 +98,11 @@ public class Main extends javax.swing.JFrame {
         cbNovoUsuario.setEnabled(false);
 
         jButton1.setText("Gerar o modelo.sql");
-        jButton1.setEnabled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         gerarBD.setText("Gerar o Banco de Dados no MySQL");
         gerarBD.addActionListener(new java.awt.event.ActionListener() {
@@ -283,6 +287,10 @@ public class Main extends javax.swing.JFrame {
             new String (this.txtSenha.getPassword())
         );
     }//GEN-LAST:event_gerarBDActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.controlador.salvarSQL(this.txtDefinir.getText()+File.separator+"modelo.sql");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
