@@ -125,8 +125,6 @@ public class sqlGerador {
                     sbSql = new StringBuffer("");
                 }
             }
-
-
         }
     }
 
