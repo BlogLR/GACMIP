@@ -25,6 +25,10 @@ public class XmlParser extends DefaultHandler {
     private File xmlFile;
     private ArrayList<BancoDados> bd = new ArrayList<>();
 
+    /**
+     *
+     * @param src
+     */
     public XmlParser(String src) {
         try {
             xmlFile = new File(src);
@@ -50,6 +54,13 @@ public class XmlParser extends DefaultHandler {
         }
     }
 
+    /**
+     *
+     * @param uri
+     * @param localName
+     * @param qName
+     * @param attr
+     */
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attr) {
         switch (qName.toLowerCase().toString()) {
@@ -68,21 +79,37 @@ public class XmlParser extends DefaultHandler {
         }
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void error(SAXParseException e) {
         System.out.println("erro SAXParseException: " + e.getMessage());
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void fatalError(SAXParseException e) {
         System.out.println("FatalErro SAXParseException: " + e.getMessage());
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void warning(SAXParseException e) {
         System.out.println("warning SAXParseException: " + e.getMessage());
     }
 
+    /**
+     *
+     * @param attr
+     */
     private void addDb(Attributes attr) {
         try {
             this.bd.add(new BancoDados(attr));
@@ -97,6 +124,10 @@ public class XmlParser extends DefaultHandler {
         }
     }
 
+    /**
+     *
+     * @param attr
+     */
     private void addTable(Attributes attr) {
         try {
             bd.get(bd.size() - 1).addTabela(attr);
@@ -105,6 +136,10 @@ public class XmlParser extends DefaultHandler {
         }
     }
 
+    /**
+     *
+     * @param attr
+     */
     private void addRelacao(Attributes attr) {
         try {
             bd.get(bd.size() - 1).addRelacao(attr);
@@ -113,6 +148,10 @@ public class XmlParser extends DefaultHandler {
         }
     }
 
+    /**
+     *
+     * @param attr
+     */
     private void addCampo(Attributes attr) {
         try {
             ArrayList<Tabela> tbl = bd.get(bd.size() - 1).getTabela();
@@ -122,6 +161,10 @@ public class XmlParser extends DefaultHandler {
         }
     }
 
+    /**
+     *
+     * @return ArrayList<BancoDados>
+     */
     public ArrayList<BancoDados> getBD() {
         return this.bd;
     }

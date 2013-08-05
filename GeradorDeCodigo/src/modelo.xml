@@ -14,3 +14,4 @@
     <relacao tabela_referecia="Categorias" tabela_estrangeira="Produtos" tipo="umxmuitos" />
     <relacao tabela_referecia="Tags" tabela_estrangeira="Produtos" tipo="muitosxmuitos" />
 </bd>
+\

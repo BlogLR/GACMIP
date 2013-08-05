@@ -8,12 +8,12 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author leandro
+ * @author Leandro Rolim
  */
 public class FileChooserPT {
 
     /**
-     *
+     * Traduz os textos da janela de seleção de arquivos
      */
     static public void traduzir() {
         UIManager.put("FileChooser.directoryOpenButtonText", "Abrir");

@@ -5,7 +5,7 @@ import org.xml.sax.Attributes;
 
 /**
  *
- * @author Leandro Rolim
+ * @author Leandro Rolim Representa um Database
  */
 public class BancoDados {
 
@@ -13,10 +13,18 @@ public class BancoDados {
     private ArrayList<Tabela> tbl = new ArrayList<>();
     private ArrayList<Relacao> rel = new ArrayList<>();
 
+    /**
+     *
+     * @param attr
+     */
     public BancoDados(Attributes attr) {
         this.setAttr(attr);
     }
 
+    /**
+     *
+     * @param attr
+     */
     private void setAttr(Attributes attr) {
         // atributo 'nome'
         if (attr.getIndex("nome") >= 0) {
@@ -27,38 +35,42 @@ public class BancoDados {
 
     }
 
+    /**
+     *
+     * @param attr
+     */
     public void addTabela(Attributes attr) {
         this.tbl.add(new Tabela(attr));
-        /*
-        Tabela[] tmp = this.tbl;
-        this.tbl = new Tabela[tmp.length + 1];
-
-        System.arraycopy(tmp, 0, this.tbl, 0, tmp.length);
-
-        this.tbl[tmp.length] = new Tabela(attr);
-        */
     }
 
+    /**
+     *
+     * @param attr
+     */
     public void addRelacao(Attributes attr) {
         this.rel.add(new Relacao(attr));
-        /*
-        Relacao[] tmp = this.rel;
-        this.rel = new Relacao[tmp.length + 1];
-
-        System.arraycopy(tmp, 0, this.rel, 0, tmp.length);
-
-        this.rel[tmp.length] = new Relacao(attr);
-        */
     }
 
+    /**
+     *
+     * @return ArrayList<Relacao>
+     */
     public ArrayList<Relacao> getRelacao() {
         return this.rel;
     }
 
+    /**
+     *
+     * @return ArrayList<Tabela>
+     */
     public ArrayList<Tabela> getTabela() {
         return this.tbl;
     }
 
+    /**
+     *
+     * @return String
+     */
     public String getNome() {
         return this.nome;
     }

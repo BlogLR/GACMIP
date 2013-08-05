@@ -6,18 +6,25 @@ import xml.Campo;
 import xml.Relacao;
 import xml.Tabela;
 
+/**
+ *
+ * @author Leandro Rolim
+ */
 public class sqlGerador {
 
     ArrayList<BancoDados> bd;
     String sql[] = new String[0];
 
+    /**
+     *
+     * @param bd
+     */
     public sqlGerador(ArrayList<BancoDados> bd) {
         this.bd = bd;
     }
 
     /**
-     *
-     * @return a String com a instrução sql
+     * Gera SQl no padrão do MySQL 5.3
      */
     public void gerarSql() {
         StringBuffer sbSql;
@@ -68,7 +75,7 @@ public class sqlGerador {
                     sbSql = new StringBuffer("");
                 }
                 rel = this.bd.get(i).getRelacao();
-                
+
                 for (int j = 0; j < rel.size(); j++) {
                     switch (rel.get(j).getTipo()) {
                         case "umxmuitos":
@@ -121,7 +128,7 @@ public class sqlGerador {
                             this.addSQL(sbSql.toString());
                             break;
                         case "umxum":
-                            
+
                             break;
                     }
                     sbSql = new StringBuffer("");
@@ -132,12 +139,16 @@ public class sqlGerador {
 
     /**
      *
-     * @return String com instrução SQL
+     * @return String[]
      */
     public String[] toStringArray() {
         return this.sql;
     }
 
+    /**
+     *
+     * @param string
+     */
     private void addSQL(String str) {
         String[] tmp = this.sql;
         this.sql = new String[tmp.length + 1];

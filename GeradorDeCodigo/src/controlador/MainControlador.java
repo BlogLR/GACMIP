@@ -20,10 +20,19 @@ public class MainControlador extends Observable implements Observer {
 
     private String url, src;
 
+    /**
+     *
+     * @param src
+     */
     public void setSrc(String src) {
         this.src = src;
     }
 
+    /**
+     *
+     * @param src
+     * @return String[]
+     */
     public String[] getSQL(String src) {
         sqlGerador sqlG;
         XmlParser xml = new XmlParser(src);
@@ -33,6 +42,13 @@ public class MainControlador extends Observable implements Observer {
         return sqlG.toStringArray();
     }
 
+    /**
+     *
+     * @param local
+     * @param porta
+     * @param usuario
+     * @param senha
+     */
     public void gerarBD(String local, String porta, String usuario, String senha) {
         System.out.println(senha);
         this.url = "jdbc:mysql://" + local + ":" + porta;
@@ -49,6 +65,10 @@ public class MainControlador extends Observable implements Observer {
         }
     }
 
+    /**
+     *
+     * @param destino
+     */
     public void salvarSQL(String destino) {
         String str[];
         str = this.getSQL(this.src);
@@ -65,6 +85,11 @@ public class MainControlador extends Observable implements Observer {
         saida.close();
     }
 
+    /**
+     *
+     * @param o
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -27,10 +27,18 @@ public class Campo {
             nao_nulo = false,
             auto = false;
 
+    /**
+     *
+     * @param attr
+     */
     public Campo(Attributes attr) {
         this.setAttr(attr);
     }
 
+    /**
+     *
+     * @param attr
+     */
     private void setAttr(Attributes attr) {
         try {
             // atributo 'nome'
@@ -70,6 +78,10 @@ public class Campo {
         }
     }
 
+    /**
+     *
+     * @param tipo
+     */
     private void setTipo(String tipo) {
         for (int i = 0; i < this.tipos.length; i++) {
             if (this.tipos[i][0].equals(tipo)) {
@@ -80,26 +92,50 @@ public class Campo {
         }
     }
 
+    /**
+     *
+     * @return String
+     */
     public String getNome() {
         return this.nome;
     }
 
+    /**
+     *
+     * @return String
+     */
     public String getTipo() {
         return this.tipo;
     }
 
+    /**
+     *
+     * @return String
+     */
     public String getTamanho() {
         return this.tamanho;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public boolean getPrimario() {
         return this.unico;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public boolean getNaoNulo() {
         return this.nao_nulo;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public boolean getAuto() {
         return this.auto;
     }
