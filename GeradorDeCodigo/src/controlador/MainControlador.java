@@ -2,6 +2,8 @@ package controlador;
 
 import java.io.FileNotFoundException;
 import java.util.Formatter;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sql.ConectorMySql;
@@ -14,7 +16,7 @@ import xml.XmlParser;
  * @author Leandro Rolim
  *
  */
-public class MainControlador {
+public class MainControlador extends Observable implements Observer {
 
     private String url, src;
 
@@ -54,12 +56,17 @@ public class MainControlador {
         try {
             saida = new Formatter(destino);
             saida.flush();
-            for (int i=0;i<str.length;i++){
+            for (int i = 0; i < str.length; i++) {
                 saida.format("%s ;\n\n", str[i]);
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainControlador.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         saida.close();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

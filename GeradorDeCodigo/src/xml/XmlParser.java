@@ -51,19 +51,14 @@ public class XmlParser extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attr) {
-        switch (qName.toLowerCase().toString()) {
-            case "bd":
-                addDb(attr);
-                break;
-            case "tabela":
-                addTable(attr);
-                break;
-            case "campo":
-                addCampo(attr);
-                break;
-            case "relacao":
-                addRelacao(attr);
-                break;
+        if (qName.toLowerCase().toString().equals("bd")) {
+            addDb(attr);
+        } else if (qName.toLowerCase().toString().equals("tabela")) {
+            addTable(attr);
+        } else if (qName.toLowerCase().toString().equals("campo")) {
+            addCampo(attr);
+        } else if (qName.toLowerCase().toString().equals("relacao")) {
+            addRelacao(attr);
         }
     }
 
@@ -89,7 +84,7 @@ public class XmlParser extends DefaultHandler {
             System.arraycopy(tmp, 0, bd, 0, tmp.length);
             bd[tmp.length] = new BancoDados(attr);
         } catch (Exception e) {
-            System.out.println("Erro ler tag \'db\': "+e.getMessage());
+            System.out.println("Erro ler tag \'db\': " + e.getMessage());
         }
     }
 
@@ -98,15 +93,16 @@ public class XmlParser extends DefaultHandler {
             int nBD = bd.length - 1;
             bd[nBD].addTabela(attr);
         } catch (Exception e) {
-            System.out.println("Erro ler tag \'table\': "+e.getMessage());
+            System.out.println("Erro ler tag \'table\': " + e.getMessage());
         }
     }
+
     private void addRelacao(Attributes attr) {
         try {
             int nBD = bd.length - 1;
             bd[nBD].addRelacao(attr);
         } catch (Exception e) {
-            System.out.println("Erro ler tag \'relacao\': "+e.getMessage());
+            System.out.println("Erro ler tag \'relacao\': " + e.getMessage());
         }
     }
 
@@ -117,7 +113,7 @@ public class XmlParser extends DefaultHandler {
             n = tbl.length - 1;
             tbl[n].addCampo(attr);
         } catch (Exception e) {
-            System.out.println("Erro ler tag \'campo\': "+e.getMessage());
+            System.out.println("Erro ler tag \'campo\': " + e.getMessage());
         }
     }
 

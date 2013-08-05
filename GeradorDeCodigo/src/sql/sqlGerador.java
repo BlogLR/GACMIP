@@ -67,6 +67,7 @@ public class sqlGerador {
                     sbSql = new StringBuffer("");
                 }
                 rel = this.bd[i].getRelacao();
+                
                 for (int j = 0; j < rel.length; j++) {
                     switch (rel[j].getTipo()) {
                         case "umxmuitos":
@@ -91,7 +92,7 @@ public class sqlGerador {
                             this.addSQL(sbSql.toString());
                             break;
                         case "muitosxmuitos":
-                            String tblLink = bd[i].getNome()+"`.`"+rel[j].getReferencia() + "_" + rel[j].getEstrangeiro();
+                            String tblLink = bd[i].getNome() + "`.`" + rel[j].getReferencia() + "_" + rel[j].getEstrangeiro();
                             sbSql
                                     .append("CREATE TABLE IF NOT EXISTS `")
                                     .append(tblLink)
@@ -119,7 +120,7 @@ public class sqlGerador {
                             this.addSQL(sbSql.toString());
                             break;
                         case "umxum":
-                            //falta implementar
+                            
                             break;
                     }
                     sbSql = new StringBuffer("");

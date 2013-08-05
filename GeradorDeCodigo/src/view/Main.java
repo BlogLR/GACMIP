@@ -13,7 +13,7 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author leandro
  */
-public class Main extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame{
     MainControlador controlador;
     /**
      * Creates new form Main
