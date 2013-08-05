@@ -4,6 +4,7 @@
  */
 package xml;
 
+import java.util.ArrayList;
 import org.xml.sax.Attributes;
 
 /**
@@ -13,7 +14,7 @@ import org.xml.sax.Attributes;
 public class Tabela {
 
     private String nome = "";
-    private Campo[] campos = new Campo[0];
+    private ArrayList<Campo> campos = new ArrayList<>();
 
     public Tabela(Attributes attr) {
         this.setAttr(attr);
@@ -28,17 +29,14 @@ public class Tabela {
     }
 
     public void addCampo(Attributes attr) {
-        Campo[] tmp = this.campos;
-        this.campos = new Campo[tmp.length + 1];
-        System.arraycopy(tmp, 0, this.campos, 0, tmp.length);
-        this.campos[tmp.length] = new Campo(attr);
+        this.campos.add(new Campo(attr));
     }
 
     public String getNome() {
         return this.nome;
     }
 
-    public Campo[] getCampos() {
+    public ArrayList<Campo> getCampos() {
         return this.campos;
     }
 }

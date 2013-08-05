@@ -2,6 +2,7 @@ package xml;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -22,7 +23,7 @@ public class XmlParser extends DefaultHandler {
 
     private Document doc;
     private File xmlFile;
-    private BancoDados[] bd = new BancoDados[0];
+    private ArrayList<BancoDados> bd = new ArrayList<>();
 
     public XmlParser(String src) {
         try {
@@ -51,14 +52,19 @@ public class XmlParser extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attr) {
-        if (qName.toLowerCase().toString().equals("bd")) {
-            addDb(attr);
-        } else if (qName.toLowerCase().toString().equals("tabela")) {
-            addTable(attr);
-        } else if (qName.toLowerCase().toString().equals("campo")) {
-            addCampo(attr);
-        } else if (qName.toLowerCase().toString().equals("relacao")) {
-            addRelacao(attr);
+        switch (qName.toLowerCase().toString()) {
+            case "bd":
+                addDb(attr);
+                break;
+            case "tabela":
+                addTable(attr);
+                break;
+            case "campo":
+                addCampo(attr);
+                break;
+            case "relacao":
+                addRelacao(attr);
+                break;
         }
     }
 
@@ -79,10 +85,13 @@ public class XmlParser extends DefaultHandler {
 
     private void addDb(Attributes attr) {
         try {
-            BancoDados tmp[] = this.bd;
-            bd = new BancoDados[tmp.length + 1];
-            System.arraycopy(tmp, 0, bd, 0, tmp.length);
-            bd[tmp.length] = new BancoDados(attr);
+            this.bd.add(new BancoDados(attr));
+            /*
+             BancoDados tmp[] = this.bd;
+             bd = new BancoDados[tmp.length + 1];
+             System.arraycopy(tmp, 0, bd, 0, tmp.length);
+             bd[tmp.length] = new BancoDados(attr);
+             */
         } catch (Exception e) {
             System.out.println("Erro ler tag \'db\': " + e.getMessage());
         }
@@ -90,8 +99,7 @@ public class XmlParser extends DefaultHandler {
 
     private void addTable(Attributes attr) {
         try {
-            int nBD = bd.length - 1;
-            bd[nBD].addTabela(attr);
+            bd.get(bd.size() - 1).addTabela(attr);
         } catch (Exception e) {
             System.out.println("Erro ler tag \'table\': " + e.getMessage());
         }
@@ -99,8 +107,7 @@ public class XmlParser extends DefaultHandler {
 
     private void addRelacao(Attributes attr) {
         try {
-            int nBD = bd.length - 1;
-            bd[nBD].addRelacao(attr);
+            bd.get(bd.size() - 1).addRelacao(attr);
         } catch (Exception e) {
             System.out.println("Erro ler tag \'relacao\': " + e.getMessage());
         }
@@ -108,16 +115,14 @@ public class XmlParser extends DefaultHandler {
 
     private void addCampo(Attributes attr) {
         try {
-            int n = bd.length - 1;
-            Tabela tbl[] = bd[n].getTabela();
-            n = tbl.length - 1;
-            tbl[n].addCampo(attr);
+            ArrayList<Tabela> tbl = bd.get(bd.size() - 1).getTabela();
+            tbl.get(tbl.size() - 1).addCampo(attr);
         } catch (Exception e) {
             System.out.println("Erro ler tag \'campo\': " + e.getMessage());
         }
     }
 
-    public BancoDados[] getBD() {
+    public ArrayList<BancoDados> getBD() {
         return this.bd;
     }
 }

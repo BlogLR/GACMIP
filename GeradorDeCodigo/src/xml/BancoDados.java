@@ -1,5 +1,6 @@
 package xml;
 
+import java.util.ArrayList;
 import org.xml.sax.Attributes;
 
 /**
@@ -9,8 +10,8 @@ import org.xml.sax.Attributes;
 public class BancoDados {
 
     private String nome = "";
-    private Tabela[] tbl = new Tabela[0];
-    private Relacao[] rel = new Relacao[0];
+    private ArrayList<Tabela> tbl = new ArrayList<>();
+    private ArrayList<Relacao> rel = new ArrayList<>();
 
     public BancoDados(Attributes attr) {
         this.setAttr(attr);
@@ -27,28 +28,34 @@ public class BancoDados {
     }
 
     public void addTabela(Attributes attr) {
+        this.tbl.add(new Tabela(attr));
+        /*
         Tabela[] tmp = this.tbl;
         this.tbl = new Tabela[tmp.length + 1];
 
         System.arraycopy(tmp, 0, this.tbl, 0, tmp.length);
 
         this.tbl[tmp.length] = new Tabela(attr);
+        */
     }
 
     public void addRelacao(Attributes attr) {
+        this.rel.add(new Relacao(attr));
+        /*
         Relacao[] tmp = this.rel;
         this.rel = new Relacao[tmp.length + 1];
 
         System.arraycopy(tmp, 0, this.rel, 0, tmp.length);
 
         this.rel[tmp.length] = new Relacao(attr);
+        */
     }
 
-    public Relacao[] getRelacao() {
+    public ArrayList<Relacao> getRelacao() {
         return this.rel;
     }
 
-    public Tabela[] getTabela() {
+    public ArrayList<Tabela> getTabela() {
         return this.tbl;
     }
 
